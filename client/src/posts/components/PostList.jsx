@@ -1,16 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAllPosts } from '../redux'
+import { fetchAllPosts, getPostList } from '../redux'
+import PostItem from './PostItem'
+import * as actions from '../redux/actions'
+
 
 class PostList extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchAllPosts())
+    this.props.fetchAllPosts()
   }
 
+  downVote = (id) => {
+    this.props.vote(id, -1)
+  };
+
+  upVote = (id) => {
+    this.props.vote(id, 1)
+  };
+
   render() {
+    const { list } = this.props
     return (
       <div>
-        {this.props.data && JSON.stringify(this.props.data, null, 4)}
+        {list.map((li) => (
+          <PostItem {...li} key={li.id} upVote={this.upVote} downVote={this.downVote}/>
+        ))}
       </div>
     )
   }
@@ -18,7 +32,11 @@ class PostList extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    data: state.posts.data
+    list: getPostList(state),
   }
 }
-export default connect(mapStateToProps)(PostList)
+const mapDispatchToProps = {
+  vote: actions.vote,
+  fetchAllPosts,
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PostList)

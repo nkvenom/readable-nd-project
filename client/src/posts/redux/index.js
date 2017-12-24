@@ -1,8 +1,5 @@
 import { apiCall } from '../../utils/api'
-
-const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST'
-const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS'
-const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE'
+import * as types from './actionTypes'
 
 
 export const fetchAllPosts = () => {
@@ -21,12 +18,12 @@ export const fetchAllPosts = () => {
 }
 
 const fetchPostsRequest = () => ({
-  type: FETCH_POSTS_REQUEST,
+  type: types.FETCH_POSTS_REQUEST,
   error: null
 })
 
 const fetchPostsSuccess = posts => ({
-  type: FETCH_POSTS_SUCCESS,
+  type: types.FETCH_POSTS_SUCCESS,
   posts,
   error: null
 })
@@ -35,27 +32,14 @@ const fetchPostsFailure = error => {
   console.log(error)
 
   return {
-    type: FETCH_POSTS_FAILURE,
+    type: types.FETCH_POSTS_FAILURE,
     error: error.message,
     stack: error.stack
   }
 }
 
 
-export default function reducer(state = {}, action) {
-  const { posts: postsArray } = action
-  switch (action.type) {
-    case FETCH_POSTS_SUCCESS:
-      const data = postsArray.reduce((postMap, post) => {
-        postMap[post.id] = post
-        return postMap
-      }, {})
-
-      return {
-        ...state,
-        data
-      }
-    default:
-      return state
-  }
+export function getPostList(state) {
+  if (!state.posts || !state.posts.data) return []
+  return Object.values(state.posts.data)
 }

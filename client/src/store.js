@@ -6,7 +6,7 @@ import {
 } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer as categories } from './categories'
-import { reducer as posts } from './posts'
+import posts from './posts/redux/reducer'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const reducer = combineReducers({
