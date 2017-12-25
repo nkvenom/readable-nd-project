@@ -24,11 +24,16 @@ downVote = () => {
   render() {
     const {
         title,
+        author,
         voteScore,
+        commentCount,
+        timestamp,
     } = this.props
+
+    const strDate = new Date(timestamp).toLocaleDateString()
     return (
       <div>
-          {title} | {voteScore}
+          {title} | {strDate} | {author} | comments: ({commentCount}) | {voteScore}
           <button onClick={this.upVote}>Up</button>
           <button onClick={this.downVote}>Down</button>
       </div>
