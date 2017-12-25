@@ -5,7 +5,7 @@ let db = {}
 const defaultData = {
   "8xf0y6ziyjabvozdd253nd": {
     id: '8xf0y6ziyjabvozdd253nd',
-    timestamp: 1467166872634,
+    timestamp: 1514238965473,
     title: 'Udacity is the best place to learn React',
     body: 'Everyone says so after all.',
     author: 'thingtwo',
@@ -27,13 +27,24 @@ const defaultData = {
   },
   "foo6trollolf1p33lnez": {
     id: 'foo6trollolf1p33lnez',
-    timestamp: 1468479767190,
+    timestamp: 1502254800000,
     title: 'Udacity Rocks!',
     body: 'Learn technology. Just kidding. may take more than 10 minutes',
     author: 'thingone',
     category: 'udacity',
     voteScore: 13,
     deleted: false,
+    commentCount: 0
+  },
+  "some1337asddlf1p33lnez": {
+    id: 'some1337asddlf1p33lnez',
+    timestamp: 1468473067190,
+    title: 'Some delete post!',
+    body: 'Learn technology. Just kidding. may take more than 10 minutes',
+    author: 'noone',
+    category: 'udacity',
+    voteScore: 1337,
+    deleted: true,
     commentCount: 0
   }
 }
