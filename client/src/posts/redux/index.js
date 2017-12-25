@@ -37,9 +37,3 @@ const fetchPostsFailure = error => {
     stack: error.stack
   }
 }
-
-
-export function getPostList(state) {
-  if (!state.posts || !state.posts.data) return []
-  return Object.values(state.posts.data)
-}

@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "foo6trollolf1p33lnez": {
+    id: 'foo6trollolf1p33lnez',
+    timestamp: 1468479767190,
+    title: 'Udacity Rocks!',
+    body: 'Learn technology. Just kidding. may take more than 10 minutes',
+    author: 'thingone',
+    category: 'udacity',
+    voteScore: 13,
+    deleted: false,
+    commentCount: 0
   }
 }
 
