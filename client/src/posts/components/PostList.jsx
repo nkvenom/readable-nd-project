@@ -68,8 +68,14 @@ class PostList extends Component {
       if (sortMode === 2) {
         return bVal - aVal
       }
+
+      return 0
     })
   }
+
+  deletePost = (postId) => {
+    this.props.deletePost(postId)
+  };
 
   render() {
     const list = this.getSortedList()
@@ -87,6 +93,7 @@ class PostList extends Component {
               key={li.id}
               upVote={this.upVote}
               downVote={this.downVote}
+              delete={this.deletePost}
             />
           ))}
         </div>
@@ -103,6 +110,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = {
   vote: actions.vote,
-  fetchAllPosts
+  fetchAllPosts,
+  deletePost: actions.deletePost,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

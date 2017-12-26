@@ -1,7 +1,8 @@
-export async function apiCall(url) {
+export async function apiCall(url, options={}) {
   const fullUrl = `http://localhost:3001${url}`
   const response = await fetch(fullUrl, {
-    headers: { Authorization: 'whatever-you-want' }
+    headers: { Authorization: 'whatever-you-want' },
+    ...options,
   })
 
   if (!response.ok) {

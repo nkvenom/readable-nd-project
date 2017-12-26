@@ -21,11 +21,25 @@ export default function reducer(state = {}, action) {
           ...state.data,
           [id]: {
             ...state.data[id],
-            voteScore: state.data[id].voteScore + action.delta,
+            voteScore: state.data[id].voteScore + action.delta
           }
         }
       }
     }
+
+    case types.DELETE_SUCCESS: {
+      const {
+        [id]: toDel,
+        ...restData,
+      } = state.data
+
+      console.log('toDel=', toDel)
+      return {
+        ...state,
+        data: restData,
+      }
+    }
+
     default:
       return state
   }

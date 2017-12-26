@@ -10,32 +10,32 @@ export default class PostItem extends Component {
     author: PropTypes.string,
     category: PropTypes.string,
     voteScore: PropTypes.number,
-    deleted: PropTypes.bool,
+    delete: PropTypes.func.isRequired,
   }
 
-upVote = () => {
+  upVote = () => {
     this.props.upVote(this.props.id)
-};
+  }
 
-downVote = () => {
+  downVote = () => {
     this.props.downVote(this.props.id)
-};
+  }
+
+  delete = () => {
+    this.props.delete(this.props.id)
+  };
 
   render() {
-    const {
-        title,
-        author,
-        voteScore,
-        commentCount,
-        timestamp,
-    } = this.props
+    const { title, author, voteScore, commentCount, timestamp } = this.props
 
     const strDate = new Date(timestamp).toLocaleDateString()
     return (
       <div>
-          {title} | {strDate} | {author} | comments: ({commentCount}) | {voteScore}
-          <button onClick={this.upVote}>Up</button>
-          <button onClick={this.downVote}>Down</button>
+        {title} | {strDate} | {author} | comments: ({commentCount}) |{' '}
+        {voteScore}
+        <button onClick={this.upVote}>Up</button>
+        <button onClick={this.downVote}>Down</button>
+        <button onClick={this.delete}>Delete</button>
       </div>
     )
   }
