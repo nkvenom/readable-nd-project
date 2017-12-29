@@ -7,11 +7,13 @@ import {
 import thunk from 'redux-thunk'
 import { reducer as categories } from './categories'
 import posts from './posts/redux/reducer'
+import comments from './comments/redux/reducer'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const reducer = combineReducers({
   categories,
-  posts
+  posts,
+  comments
 })
 
 const store = createStore(

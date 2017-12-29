@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { fetchAllPosts } from '../redux'
 import PostItem from './PostItem'
 import * as actions from '../redux/actions'
 import * as selectors from '../redux/selectors'
@@ -110,7 +109,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = {
   vote: actions.vote,
-  fetchAllPosts,
+  fetchAllPosts: actions.fetchAllPosts,
   deletePost: actions.deletePost,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

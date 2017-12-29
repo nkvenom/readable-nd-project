@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { Link } from 'react-router-dom'
+
+
 export default class PostItem extends Component {
   static propTypes = {
     id: PropTypes.string,
@@ -26,12 +29,15 @@ export default class PostItem extends Component {
   };
 
   render() {
-    const { title, author, voteScore, commentCount, timestamp } = this.props
+    const { title, author, voteScore, commentCount, timestamp, category, id } = this.props
 
     const strDate = new Date(timestamp).toLocaleDateString()
     return (
       <div>
-        {title} | {strDate} | {author} | comments: ({commentCount}) |{' '}
+        <Link to={`/${category}/${id}`}>
+          {title} | {strDate} | {author}
+        </Link>
+        | comments: ({commentCount}) |
         {voteScore}
         <button onClick={this.upVote}>Up</button>
         <button onClick={this.downVote}>Down</button>

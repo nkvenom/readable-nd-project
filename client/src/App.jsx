@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import logo from './logo.svg'
 import './App.css'
 
-import { PostList } from './posts'
+import { PostList, PostDetail } from './posts'
 import { CategoriesLinks } from './categories'
 
 class App extends Component {
@@ -23,6 +23,7 @@ class App extends Component {
             <h2>Posts</h2>
             <Route path="/" exact component={PostList} />
             <Route path="/:categoryId" exact component={PostList} />
+            <Route path="/:categoryId/:postId" exact component={PostDetail} />
           </div>
         </Router>
       </div>

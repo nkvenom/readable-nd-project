@@ -7,3 +7,9 @@ export function getPostList(state, categoryId) {
 
   return Object.values(state.posts.data).filter(p => p.category === categoryId)
 }
+
+export function getPost(state, postId) {
+  if (!state.posts || !state.posts.data) return null
+
+  return state.posts.data[postId]
+}

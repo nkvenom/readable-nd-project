@@ -33,7 +33,6 @@ export default function reducer(state = {}, action) {
         ...restData,
       } = state.data
 
-      console.log('toDel=', toDel)
       return {
         ...state,
         data: restData,
