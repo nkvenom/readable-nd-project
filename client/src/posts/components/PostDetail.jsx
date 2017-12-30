@@ -6,7 +6,6 @@ import CommentList from '../../comments/components/CommentList.jsx'
 class PostDetail extends Component {
   render() {
     const { post } = this.props
-    console.log('this.props=', this.props)
     if (!post) return null
 
     const { title, author, voteScore, timestamp, body, id, } = post

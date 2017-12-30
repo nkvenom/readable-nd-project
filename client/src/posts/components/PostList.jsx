@@ -27,8 +27,6 @@ class PostList extends Component {
   }
 
   onSortClick = e => {
-    console.log('e.target=', e.target)
-    console.log('e.currentTarget=', e.currentTarget)
     let newSortKey = e.target.id
 
     this.setState(({ sortKey, sortMode }) => {
@@ -108,8 +106,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 const mapDispatchToProps = {
+  deletePost: actions.deletePost,
   vote: actions.vote,
   fetchAllPosts: actions.fetchAllPosts,
-  deletePost: actions.deletePost,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)
