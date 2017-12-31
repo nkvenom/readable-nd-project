@@ -5,7 +5,9 @@ import {
   COMMENT_VOTE_SUCCESS,
   COMMENT_VOTE_FAILURE,
   COMMENT_DELETE_SUCCESS,
-  COMMENT_DELETE_FAILURE
+  COMMENT_DELETE_FAILURE,
+  UPDATE_COMMENT_FAILURE,
+  UPDATE_COMMENT_SUCCESS
 } from './actionTypes'
 
 function fetchCommentsSuccess(postId, comments) {
@@ -98,5 +100,28 @@ export function fetchCommentsByPostId(postId) {
       dispatch(commentsFailure(postId))
       console.error('HORRORR', error)
     }
+  }
+}
+
+export function updateCommentSuccess(comment) {
+  console.log('comment=', comment)
+  return {
+    type: UPDATE_COMMENT_SUCCESS,
+    comment,
+    id: comment.id,
+    postId: comment.parentId,
+  }
+}
+
+export function updateCommentFailure(comment) {
+  return {
+    type: UPDATE_COMMENT_FAILURE,
+    comment
+  }
+}
+
+export function updateComment(comment) {
+  return dispatch => {
+    return dispatch(updateCommentSuccess(comment))
   }
 }

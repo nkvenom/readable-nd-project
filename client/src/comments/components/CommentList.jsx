@@ -23,6 +23,10 @@ class CommentList extends Component {
     this.props.vote(postId, id, 1)
   }
 
+  onCommentEditFinished = (comment)  => {
+    console.log('comment=', comment)
+    this.props.updateComment(comment)
+  }
   render() {
     const { list } = this.props
     return (
@@ -34,6 +38,7 @@ class CommentList extends Component {
               upVote={this.upVote}
               downVote={this.downVote}
               delete={this.props.deleteComment}
+              onEditFinished={this.onCommentEditFinished}
               key={c.id}
             />
           ))}
@@ -48,6 +53,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   deleteComment: actions.deleteComment,
   vote: actions.vote,
-  fetchCommentsByPostId: actions.fetchCommentsByPostId
+  fetchCommentsByPostId: actions.fetchCommentsByPostId,
+  updateComment: actions.updateComment,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CommentList)

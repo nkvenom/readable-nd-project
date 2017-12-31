@@ -44,6 +44,24 @@ export default function reducer(state = {}, action) {
         }
       }
 
+
+      case types.UPDATE_COMMENT_SUCCESS: {
+        const commentsMap = state[postId]
+        const comment = commentsMap[id]
+        const { comment: newComment } = action
+
+        return {
+          ...state,
+          [postId]: {
+            ...commentsMap,
+            [id]: {
+              ...comment,
+              ...newComment,
+            }
+          }
+        }
+      }
+
     default:
       return state
   }
