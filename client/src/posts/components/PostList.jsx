@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import PostItem from './PostItem'
 import * as actions from '../redux/actions'
 import * as selectors from '../redux/selectors'
+import PostForm from './PostForm'
 
 class PostList extends Component {
   state = {
     sortKey: null,
-    sortMode: 0
+    sortMode: 0,
+    showNewForm: false
   }
 
   componentDidMount() {
@@ -20,10 +22,6 @@ class PostList extends Component {
 
   upVote = id => {
     this.props.vote(id, 1)
-  }
-
-  componentDidUpdate() {
-    console.log(this.props.match)
   }
 
   onSortClick = e => {
@@ -70,11 +68,26 @@ class PostList extends Component {
     })
   }
 
-  deletePost = (postId) => {
+  deletePost = postId => {
     this.props.deletePost(postId)
-  };
+  }
+
+  toggleNewForm = () => {
+    this.setState(({ showNewForm }) => {
+      return {
+        showNewForm: !showNewForm
+      }
+    })
+  }
+
+  onEditFinished = (post) => {
+    console.log('edit finished', post)
+    this.props.createPost(post)
+    this.toggleNewForm()
+  }
 
   render() {
+    const { showNewForm } = this.state
     const list = this.getSortedList()
     return (
       <Fragment>
@@ -94,10 +107,29 @@ class PostList extends Component {
             />
           ))}
         </div>
+
+        {showNewForm ? (
+          <PostNewForm onEditFinished={this.onEditFinished} onCancel={this.toggleNewForm} />
+        ) : (
+          <button onClick={this.toggleNewForm} id="createNew">
+            Create New
+          </button>
+        )}
       </Fragment>
     )
   }
 }
+const PostNewForm = connect(
+  state => ({
+    post: {
+      title: '',
+      body: '',
+      author: '',
+      category:'',
+    }
+  }),
+  null
+)(PostForm)
 
 const mapStateToProps = (state, ownProps) => {
   const { match: { params: { categoryId } = {} } = {} } = ownProps
@@ -109,5 +141,6 @@ const mapDispatchToProps = {
   deletePost: actions.deletePost,
   vote: actions.vote,
   fetchAllPosts: actions.fetchAllPosts,
+  createPost: actions.createPost,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

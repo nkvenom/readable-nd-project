@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 import { apiCall } from '../../utils/api'
-
+import { uid } from '../../utils/generate-uid'
 
 const fetchPostsRequest = () => ({
   type: types.FETCH_POSTS_REQUEST,
@@ -23,14 +23,12 @@ const fetchPostsFailure = error => {
   }
 }
 
-
 export const fetchAllPosts = () => {
   return async dispatch => {
     dispatch(fetchPostsRequest())
 
     try {
       const res = await apiCall('/posts')
-      console.log('many posts=', res)
       dispatch(fetchPostsSuccess(res))
       return res
     } catch (error) {
@@ -40,12 +38,44 @@ export const fetchAllPosts = () => {
   }
 }
 
+const createPostSuccess = post => {
+  return {
+    type: types.CREATE_POST_SUCCESS,
+    post,
+    id: post.id
+  }
+}
+
+const createPostFailure = error => ({
+  type: types.CREATE_POST_FAILURE,
+  error
+})
+
+export function createPost(post) {
+  return async dispatch => {
+    post.timestamp = new Date().getTime()
+    post.id = uid()
+
+    try {
+      const newPost = await apiCall('/posts', {
+        method: 'POST',
+        body: JSON.stringify({ ...post })
+      })
+
+      console.log('newPost=', newPost)
+      return dispatch(createPostSuccess(newPost))
+    } catch (error) {
+      console.error('HORRORR', error)
+      dispatch(createPostFailure(error))
+    }
+  }
+}
 
 function voteSuccess(id, delta) {
   return {
     type: types.VOTE_SUCCESS,
     id,
-    delta,
+    delta
   }
 }
 
@@ -53,7 +83,7 @@ function voteFailure(id, delta) {
   return {
     type: types.VOTE_FAILURE,
     id,
-    delta,
+    delta
   }
 }
 
@@ -63,7 +93,7 @@ export function vote(id, delta) {
       const option = delta > 0 ? 'upVote' : 'downVote'
       await apiCall(`/posts/${id}`, {
         method: 'POST',
-        body: JSON.stringify({ option }),
+        body: JSON.stringify({ option })
       })
 
       dispatch(voteSuccess(id, delta))
@@ -107,7 +137,7 @@ export function fetchSinglePost(id) {
   return async dispatch => {
     try {
       const post = await apiCall(`/posts/${id}`)
-      return dispatch(fetchPostsSuccess([ post ]))
+      return dispatch(fetchPostsSuccess([post]))
     } catch (error) {
       console.error('HORRORR', error)
       dispatch(fetchPostsFailure(error))

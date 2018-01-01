@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getPost } from '../redux/selectors'
 import { fetchSinglePost } from '../redux/actions'
 import CommentList from '../../comments/components/CommentList.jsx'
+import { formatDate } from '../../utils/formatDate'
 
 class PostDetail extends Component {
   componentDidMount = () => {
@@ -19,9 +20,9 @@ class PostDetail extends Component {
     return (
       <div>
         <h1>{title}</h1>
-        <div>{author}</div>
-        <div>{timestamp}</div>
-        <div>{voteScore}</div>
+        <div>Author: {author}</div>
+        <div>Date: {formatDate(timestamp)}</div>
+        <div>Votes: {voteScore}</div>
         <p>{body}</p>
 
         <CommentList postId={id} />

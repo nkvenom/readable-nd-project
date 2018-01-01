@@ -11,7 +11,6 @@ class CommentList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.fetchCommentsByPostId)
     this.props.fetchCommentsByPostId(this.props.postId)
   }
 
@@ -24,7 +23,6 @@ class CommentList extends Component {
   }
 
   onCommentEditFinished = (comment)  => {
-    console.log('comment=', comment)
     this.props.updateComment(comment)
   }
   render() {

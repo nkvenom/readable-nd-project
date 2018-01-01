@@ -14,18 +14,31 @@ export default function reducer(state = {}, action) {
         data
       }
 
-    case types.VOTE_SUCCESS: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [id]: {
-            ...state.data[id],
-            voteScore: state.data[id].voteScore + action.delta
+      case types.VOTE_SUCCESS: {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            [id]: {
+              ...state.data[id],
+              voteScore: state.data[id].voteScore + action.delta
+            }
           }
         }
       }
-    }
+
+      case types.CREATE_POST_SUCCESS: {
+        const post = action.post
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            [id]: {
+              ...post,
+            }
+          }
+        }
+      }
 
     case types.DELETE_SUCCESS: {
       const {

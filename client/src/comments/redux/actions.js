@@ -104,7 +104,6 @@ export function fetchCommentsByPostId(postId) {
 }
 
 export function updateCommentSuccess(comment) {
-  console.log('comment=', comment)
   return {
     type: UPDATE_COMMENT_SUCCESS,
     comment,

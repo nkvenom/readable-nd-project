@@ -40,7 +40,10 @@ class CommmentForm extends Component {
             <input id="timestamp" type="text" defaultValue={formatDate(comment.timestamp)} />
           </div>
 
-          <div><button type="submit">Ok</button><button onCancel={this.onCancel}>Cancel</button></div>
+          <div>
+            <button type="submit">Ok</button>
+            <button onClick={this.onCancel}>Cancel</button>
+          </div>
         </form>
       </div>
     )
