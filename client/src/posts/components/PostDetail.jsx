@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getPost } from '../redux/selectors'
+import { fetchSinglePost } from '../redux/actions'
 import CommentList from '../../comments/components/CommentList.jsx'
 
 class PostDetail extends Component {
+  componentDidMount = () => {
+    const { match: { params: { postId } = {} } = {} } = this.props
+    this.props.fetchSinglePost(postId)
+  }
+
   render() {
     const { post } = this.props
     if (!post) return null
@@ -30,4 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     post
   }
 }
-export default connect(mapStateToProps, null)(PostDetail)
+const mapDispatchToProps = {
+  fetchSinglePost
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

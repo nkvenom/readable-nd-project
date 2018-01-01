@@ -30,6 +30,7 @@ export const fetchAllPosts = () => {
 
     try {
       const res = await apiCall('/posts')
+      console.log('many posts=', res)
       dispatch(fetchPostsSuccess(res))
       return res
     } catch (error) {
@@ -102,4 +103,14 @@ export function deletePost(id) {
   }
 }
 
-
+export function fetchSinglePost(id) {
+  return async dispatch => {
+    try {
+      const post = await apiCall(`/posts/${id}`)
+      return dispatch(fetchPostsSuccess([ post ]))
+    } catch (error) {
+      console.error('HORRORR', error)
+      dispatch(fetchPostsFailure(error))
+    }
+  }
+}
