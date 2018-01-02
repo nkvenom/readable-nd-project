@@ -80,10 +80,14 @@ class PostList extends Component {
     })
   }
 
-  onEditFinished = (post) => {
-    console.log('edit finished', post)
+  onNewPostFinished = (post) => {
     this.props.createPost(post)
     this.toggleNewForm()
+  }
+
+  onEditFinished = (post) => {
+    console.log('==onEditFinished', post)
+    this.props.updatePost(post)
   }
 
   render() {
@@ -99,17 +103,18 @@ class PostList extends Component {
         <div>
           {list.map(li => (
             <PostItem
-              {...li}
+              post={li}
               key={li.id}
               upVote={this.upVote}
               downVote={this.downVote}
               delete={this.deletePost}
+              onEditFinished={this.onEditFinished}
             />
           ))}
         </div>
 
         {showNewForm ? (
-          <PostNewForm onEditFinished={this.onEditFinished} onCancel={this.toggleNewForm} />
+          <PostNewForm onEditFinished={this.onNewPostFinished} onCancel={this.toggleNewForm} />
         ) : (
           <button onClick={this.toggleNewForm} id="createNew">
             Create New
@@ -142,5 +147,6 @@ const mapDispatchToProps = {
   vote: actions.vote,
   fetchAllPosts: actions.fetchAllPosts,
   createPost: actions.createPost,
+  updatePost: actions.updatePost,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

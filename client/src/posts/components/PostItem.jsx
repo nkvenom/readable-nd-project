@@ -2,35 +2,68 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Link } from 'react-router-dom'
-
+import PostForm from './PostForm'
 
 export default class PostItem extends Component {
+  state = {
+    editMode: false
+  }
+
   static propTypes = {
-    id: PropTypes.string,
-    timestamp: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.string,
-    author: PropTypes.string,
-    category: PropTypes.string,
-    voteScore: PropTypes.number,
-    delete: PropTypes.func.isRequired,
+    post: PropTypes.shape({
+      id: PropTypes.string,
+      timestamp: PropTypes.number,
+      title: PropTypes.string,
+      body: PropTypes.string,
+      author: PropTypes.string,
+      category: PropTypes.string,
+      voteScore: PropTypes.number,
+    }),
+    delete: PropTypes.func.isRequired
   }
 
   upVote = () => {
-    this.props.upVote(this.props.id)
+    const { post: { id } } = this.props
+    this.props.upVote(id)
   }
 
   downVote = () => {
-    this.props.downVote(this.props.id)
+    const { post: { id } } = this.props
+    this.props.downVote(id)
   }
 
   delete = () => {
-    this.props.delete(this.props.id)
-  };
+    const { post: { id } } = this.props
+    this.props.delete(id)
+  }
 
-  render() {
-    const { title, author, voteScore, commentCount, timestamp, category, id } = this.props
+  toggleEditMode = () => {
+    this.setState(({ editMode }) => {
+      return {
+        editMode: !editMode
+      }
+    })
+  }
 
+  onEditFinished = (newPost) => {
+    const { post: oldPost } = this.props
+    const payload = { ...oldPost, ...newPost }
+    payload.timestamp = oldPost.timestamp
+    this.props.onEditFinished(payload)
+    this.toggleEditMode()
+  }
+
+  renderItem = () => {
+    const { post } = this.props
+    const {
+      title,
+      author,
+      voteScore,
+      commentCount,
+      timestamp,
+      category,
+      id
+    } = post
     const strDate = new Date(timestamp).toLocaleDateString()
     return (
       <div>
@@ -41,8 +74,24 @@ export default class PostItem extends Component {
         {voteScore}
         <button onClick={this.upVote}>Up</button>
         <button onClick={this.downVote}>Down</button>
+        <button onClick={this.toggleEditMode}>edit</button>
         <button onClick={this.delete}>Delete</button>
       </div>
+    )
+  }
+
+  render() {
+    const { post } = this.props
+    const { editMode } = this.state
+
+    return editMode ? (
+      <PostForm
+        post={post}
+        onCancel={this.toggleEditMode}
+        onEditFinished={this.onEditFinished}
+      />
+    ) : (
+      this.renderItem()
     )
   }
 }

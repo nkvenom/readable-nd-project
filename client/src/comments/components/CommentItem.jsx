@@ -30,7 +30,7 @@ export default class CommentItem extends Component {
   }
 
   toggleEditMode = () => {
-    this.setState(({mode}) => {
+    this.setState(({ mode }) => {
       return {
         mode: mode === 'edit' ? 'detail' : 'edit'
       }
@@ -38,7 +38,7 @@ export default class CommentItem extends Component {
   }
 
   renderDetail() {
-    const { body, author, voteScore } = this.props.comment
+    const { comment: { body, author, voteScore } = {} } = this.props
     return (
       <div>
         <hr />
@@ -53,7 +53,7 @@ export default class CommentItem extends Component {
     )
   }
 
-  onEditFinished = (newComment) => {
+  onEditFinished = newComment => {
     this.toggleEditMode()
     const { comment: oldComment } = this.props
     const payload = { ...oldComment, ...newComment }
@@ -67,7 +67,9 @@ export default class CommentItem extends Component {
     }
 
     if (this.state.mode === 'edit') {
-      return <CommentForm comment={comment} onEditFinished={this.onEditFinished} />
+      return (
+        <CommentForm comment={comment} onEditFinished={this.onEditFinished} />
+      )
     }
 
     return null

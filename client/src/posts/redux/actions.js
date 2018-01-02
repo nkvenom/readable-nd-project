@@ -71,6 +71,38 @@ export function createPost(post) {
   }
 }
 
+
+const updatePostSuccess = post => {
+  return {
+    type: types.CREATE_POST_SUCCESS,
+    post,
+    id: post.id
+  }
+}
+
+const updatePostFailure = error => ({
+  type: types.CREATE_POST_FAILURE,
+  error
+})
+
+export function updatePost(post) {
+  return async dispatch => {
+    try {
+      const updatedPost = await apiCall(`/posts/${post.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...post })
+      })
+
+      return dispatch(updatePostSuccess(updatedPost))
+    } catch (error) {
+      console.error('HORRORR', error)
+      dispatch(updatePostFailure(error))
+    }
+  }
+}
+
+
+
 function voteSuccess(id, delta) {
   return {
     type: types.VOTE_SUCCESS,
