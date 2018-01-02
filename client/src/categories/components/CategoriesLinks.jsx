@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { fetchCategories } from '../redux/actions'
 import * as selectors from '../redux/selectors'
 
+import style from './CategoriesLinks.css'
+
 class CategoriesLinks extends Component {
   componentDidMount() {
     this.props.fetchCategories()
@@ -14,7 +16,7 @@ class CategoriesLinks extends Component {
   render() {
     const { categories } = this.props
     return (
-      <div>
+      <div className={style.categoryLinks}>
         {categories && categories.map(c => <Link key={c.path} to={`/${c.path}`}>{c.name}</Link>)}
       </div>
     )

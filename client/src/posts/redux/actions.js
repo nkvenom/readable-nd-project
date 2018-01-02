@@ -156,8 +156,8 @@ export function deletePost(id) {
 
       return dispatch(deleteSuccess(id))
     } catch (error) {
-      dispatch(deleteFailure(id))
       console.error('HORRORR', error)
+      dispatch(deleteFailure(id))
     }
   }
 }
