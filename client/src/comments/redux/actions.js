@@ -9,6 +9,7 @@ import {
   UPDATE_COMMENT_FAILURE,
   UPDATE_COMMENT_SUCCESS
 } from './actionTypes'
+import { uid } from '../../utils/generate-uid'
 
 function fetchCommentsSuccess(postId, comments) {
   return {
@@ -112,15 +113,65 @@ export function updateCommentSuccess(comment) {
   }
 }
 
-export function updateCommentFailure(comment) {
+export function updateCommentFailure(error) {
   return {
     type: UPDATE_COMMENT_FAILURE,
-    comment
+    error: error.message,
+    stack: error.stack,
   }
 }
 
 export function updateComment(comment) {
-  return dispatch => {
-    return dispatch(updateCommentSuccess(comment))
+  return async dispatch => {
+
+    try {
+      const updated = await apiCall(`/comments/${comment.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ ...comment })
+      })
+
+      return dispatch(updateCommentSuccess(updated))
+    } catch (error) {
+      dispatch(updateCommentFailure(error))
+    }
   }
 }
+
+
+export function createCommentSuccess(comment) {
+  return {
+    type: UPDATE_COMMENT_SUCCESS,
+    comment,
+    id: comment.id,
+    postId: comment.parentId,
+  }
+}
+
+export function createCommentFailure(error) {
+  return {
+    type: UPDATE_COMMENT_FAILURE,
+    error: error.message,
+    stack: error.stack,
+  }
+}
+
+export function createComment(comment) {
+  return async dispatch => {
+
+    comment.timestamp = new Date().getTime()
+    comment.id = uid()
+
+    console.log('comment=', comment)
+    try {
+      const response = await apiCall('/comments', {
+        method: 'POST',
+        body: JSON.stringify({ ...comment })
+      })
+
+      return dispatch(updateCommentSuccess(response))
+    } catch (error) {
+      dispatch(updateCommentFailure(error))
+    }
+  }
+}
+

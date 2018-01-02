@@ -86,7 +86,6 @@ class PostList extends Component {
   }
 
   onEditFinished = (post) => {
-    console.log('==onEditFinished', post)
     this.props.updatePost(post)
   }
 
@@ -124,6 +123,8 @@ class PostList extends Component {
     )
   }
 }
+
+
 const PostNewForm = connect(
   state => ({
     post: {

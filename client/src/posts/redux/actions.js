@@ -62,10 +62,8 @@ export function createPost(post) {
         body: JSON.stringify({ ...post })
       })
 
-      console.log('newPost=', newPost)
       return dispatch(createPostSuccess(newPost))
     } catch (error) {
-      console.error('HORRORR', error)
       dispatch(createPostFailure(error))
     }
   }
@@ -95,7 +93,6 @@ export function updatePost(post) {
 
       return dispatch(updatePostSuccess(updatedPost))
     } catch (error) {
-      console.error('HORRORR', error)
       dispatch(updatePostFailure(error))
     }
   }

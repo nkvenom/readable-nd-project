@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { formatDate } from '../../utils/formatDate'
 
 class CommmentForm extends Component {
   static propTypes = {
     comment: PropTypes.object.isRequired,
-    onEditFinished: PropTypes.func.isRequired
+    onEditFinished: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   }
 
-  onSubmit = (e)  => {
+  onSubmit = e => {
     e.preventDefault()
-    const inputs = Array.from(e.target.querySelectorAll('input[id]'))
+    const inputs = Array.from(e.target.querySelectorAll('.form-group [id]'))
     const updatedValues = inputs.reduce((c, i) => {
       c[i.id] = i.value
       return c
@@ -18,26 +18,26 @@ class CommmentForm extends Component {
 
     updatedValues.timestamp = new Date(updatedValues.timestamp).getTime()
     this.props.onEditFinished(updatedValues)
-  };
+  }
 
   render() {
     const { comment } = this.props
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          <div>
+          <div className="form-group">
             <label htmlFor="body">Body</label>
-            <input id="body" type="text" defaultValue={comment.body} />
+            <textarea
+              id="body"
+              cols="20"
+              rows="5"
+              defaultValue={comment.body}
+            />
           </div>
 
-          <div>
+          <div className="form-group">
             <label htmlFor="author">author</label>
             <input id="author" type="text" defaultValue={comment.author} />
-          </div>
-
-          <div>
-            <label htmlFor="timestamp">Date</label>
-            <input id="timestamp" type="text" defaultValue={formatDate(comment.timestamp)} />
           </div>
 
           <div>

@@ -68,7 +68,11 @@ export default class CommentItem extends Component {
 
     if (this.state.mode === 'edit') {
       return (
-        <CommentForm comment={comment} onEditFinished={this.onEditFinished} />
+        <CommentForm
+          comment={comment}
+          onCancel={this.toggleEditMode}
+          onEditFinished={this.onEditFinished}
+        />
       )
     }
 
