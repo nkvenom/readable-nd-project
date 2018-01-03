@@ -12,3 +12,20 @@
 .textLarge {
   font-size: large;
 }
+
+.detailHeader {
+  display: flex;
+}
+
+.postToolbar {
+  margin-left: 1rem;
+}
+
+.votingGroup {
+  display: flex;
+  align-items: center;
+}
+
+.votes {
+  width: 5rem;
+}
