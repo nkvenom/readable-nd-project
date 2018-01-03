@@ -19,7 +19,7 @@ class PostDetail extends Component {
 
     return (
       <div>
-        <h1>{title}</h1>
+        <h5>{title}</h5>
         <div>Author: {author}</div>
         <div>Date: {formatDate(timestamp)}</div>
         <div>Votes: {voteScore}</div>

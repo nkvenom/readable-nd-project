@@ -1,0 +1,15 @@
+.postItem {
+  margin-top: 1em;
+  display: flex;
+}
+
+.postBlock {
+  margin-left: 1rem;
+  flex-grow: 1;
+}
+
+.postToolbar {
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-items: center;
+}

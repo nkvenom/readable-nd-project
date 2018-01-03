@@ -115,7 +115,7 @@ class PostList extends Component {
         {showNewForm ? (
           <PostNewForm onEditFinished={this.onNewPostFinished} onCancel={this.toggleNewForm} />
         ) : (
-          <button onClick={this.toggleNewForm} id="createNew">
+          <button className="btn btn-lg btn-primary" onClick={this.toggleNewForm} id="createNew">
             Create New
           </button>
         )}

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import PostForm from './PostForm'
 
+import style from './PostItem.css'
+
 export default class PostItem extends Component {
   state = {
     editMode: false
@@ -17,7 +19,7 @@ export default class PostItem extends Component {
       body: PropTypes.string,
       author: PropTypes.string,
       category: PropTypes.string,
-      voteScore: PropTypes.number,
+      voteScore: PropTypes.number
     }),
     delete: PropTypes.func.isRequired
   }
@@ -45,7 +47,7 @@ export default class PostItem extends Component {
     })
   }
 
-  onEditFinished = (newPost) => {
+  onEditFinished = newPost => {
     const { post: oldPost } = this.props
     const payload = { ...oldPost, ...newPost }
     payload.timestamp = oldPost.timestamp
@@ -66,16 +68,37 @@ export default class PostItem extends Component {
     } = post
     const strDate = new Date(timestamp).toLocaleDateString()
     return (
-      <div>
-        <Link to={`/${category}/${id}`}>
-          {title} | {strDate} | {author}
-        </Link>
-        | comments: ({commentCount}) |
-        {voteScore}
-        <button onClick={this.upVote}>Up</button>
-        <button onClick={this.downVote}>Down</button>
-        <button onClick={this.toggleEditMode}>edit</button>
-        <button onClick={this.delete}>Delete</button>
+      <div className={style.postItem}>
+        <div className="btn-group-vertical">
+          <button
+            className="btn btn-sm btn-outline-dark"
+            title="Vote up"
+            onClick={this.upVote}
+          >
+            <i className="fa fa-arrow-up" aria-hidden="true" />
+          </button>
+          <div className="btn btn-sm disabled btn-outline-dark">
+            {voteScore}
+          </div>
+          <button
+            className="btn btn-sm btn-outline-dark"
+            title="Vote down"
+            onClick={this.downVote}
+          >
+            <i className="fa fa-arrow-down" aria-hidden="true" />
+          </button>
+        </div>
+        <div className={style.postBlock}>
+          <Link to={`/${category}/${id}`}>
+            {title}
+          </Link>
+          <div><span className="text-muted">Submitted on {strDate} by {author}</span></div>
+          <p>{commentCount} comments</p>
+        </div>
+        <div className={style.postToolbar}>
+          <button className="btn btn-sm" onClick={this.toggleEditMode} title="edit"><i className="fa fa-pencil" aria-hidden="true" /></button>
+          <button className="btn btn-sm" onClick={this.delete} title="Delete"><i className="fa fa-trash" aria-hidden="true" /></button>
+        </div>
       </div>
     )
   }
