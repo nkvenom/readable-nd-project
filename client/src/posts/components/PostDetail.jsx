@@ -15,9 +15,15 @@ class PostDetail extends Component {
 
   render() {
     const { post } = this.props
-    if (!post) return null
+    const { title, author, voteScore, timestamp, body, id } = post || {}
 
-    const { title, author, voteScore, timestamp, body, id } = post
+    if (!id) {
+      return (
+        <div className={style.postDetail}>
+          <h5>Post Not Found</h5>
+        </div>
+      )
+    }
 
     return (
       <Fragment>

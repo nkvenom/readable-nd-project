@@ -5,7 +5,7 @@ import logo from './readable-icon.png'
 import style from './App.css'
 
 import { PostList, PostDetail } from './posts'
-import { CategoriesLinks } from './categories'
+import { CategoryLinks } from './categories'
 
 class App extends Component {
   render() {
@@ -18,7 +18,7 @@ class App extends Component {
 
         <Router>
           <div>
-            <CategoriesLinks />
+            <CategoryLinks />
             <Switch>
               <Route path="/" exact component={PostList} />
               <Route path="/:categoryId" exact component={PostList} />
