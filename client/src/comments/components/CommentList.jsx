@@ -70,7 +70,7 @@ class CommentList extends Component {
             onCancel={this.toggleNewForm}
           />
         ) : (
-          <button className="btn btn-primary" onClick={this.toggleNewForm} id="createNew">
+          <button className="btn btn-sm btn-primary" onClick={this.toggleNewForm} id="createNew">
             New Comment
           </button>
         )}

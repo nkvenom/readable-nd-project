@@ -77,9 +77,7 @@ export default class PostItem extends Component {
           >
             <i className="fa fa-arrow-up" aria-hidden="true" />
           </button>
-          <div className="btn btn-sm disabled btn-light">
-            {voteScore}
-          </div>
+          <div className="btn btn-sm disabled btn-light">{voteScore}</div>
           <button
             className="btn btn-sm btn-light"
             title="Vote down"
@@ -89,15 +87,25 @@ export default class PostItem extends Component {
           </button>
         </div>
         <div className={style.postBlock}>
-          <Link to={`/${category}/${id}`}>
-            {title}
-          </Link>
-          <div><span className="text-muted">Submitted on {strDate} by {author}</span></div>
+          <Link to={`/${category}/${id}`}>{title}</Link>
+          <div>
+            <span className="text-muted">
+              Submitted on {strDate} by {author}
+            </span>
+          </div>
           <p>{commentCount} comments</p>
         </div>
         <div className={style.postToolbar}>
-          <button className="btn btn-sm" onClick={this.toggleEditMode} title="edit"><i className="fa fa-pencil" aria-hidden="true" /></button>
-          <button className="btn btn-sm" onClick={this.delete} title="Delete"><i className="fa fa-trash" aria-hidden="true" /></button>
+          <button
+            className="btn btn-sm"
+            onClick={this.toggleEditMode}
+            title="edit"
+          >
+            <i className="fa fa-pencil" aria-hidden="true" />
+          </button>
+          <button className="btn btn-sm" onClick={this.delete} title="Delete">
+            <i className="fa fa-trash" aria-hidden="true" />
+          </button>
         </div>
       </div>
     )

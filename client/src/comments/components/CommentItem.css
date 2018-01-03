@@ -1,0 +1,26 @@
+.commentBox {
+  display: flex;
+  max-width: 500px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.votingButtons {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.commentBlock {
+  flex-grow: 1;
+}
+
+.commentBox p {
+  margin-bottom: 0;
+}
+
+.authoring {
+  font-size: smaller;
+  color: #999999;
+}
