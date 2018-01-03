@@ -8,12 +8,15 @@
 }
 
 .votingButtons {
+  display: flex;
+  align-items: center;
   flex-grow: 0;
   flex-shrink: 0;
 }
 
 .commentBlock {
   flex-grow: 1;
+  margin-left: 0.5rem;
 }
 
 .commentBox p {
@@ -23,4 +26,9 @@
 .authoring {
   font-size: smaller;
   color: #999999;
+}
+
+.votes {
+  width: 2rem;
+  text-align: right;
 }

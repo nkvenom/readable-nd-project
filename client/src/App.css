@@ -8,7 +8,7 @@
 }
 
 .appHeader {
-  background-color: #222;
+  background-color: rgb(20, 67, 110);
   height: 60px;
   color: white;
   display: flex;

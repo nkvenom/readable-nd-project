@@ -43,7 +43,8 @@ export default class CommentItem extends Component {
     const { comment: { voteScore } } = this.props
     return (
       <Fragment>
-        {voteScore}
+        <div className={style.votes}>{voteScore}
+        </div>
         <div className="btn-group">
           <button
             className="btn btn-sm btn-light"

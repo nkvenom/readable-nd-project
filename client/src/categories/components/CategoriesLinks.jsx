@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import { fetchCategories } from '../redux/actions'
 import * as selectors from '../redux/selectors'
-
+import cn from 'classnames'
 import style from './CategoriesLinks.css'
 
 class CategoriesLinks extends Component {
@@ -16,20 +16,24 @@ class CategoriesLinks extends Component {
   render() {
     const { categories } = this.props
     return (
-      <div className={style.categoryLinks}>
-        <NavLink strict exact to="/">All</NavLink>
+      <ul className={cn('nav justify-content-center', style.categoryLinks)}>
+        <li className="nav-item">
+          <NavLink strict exact className="nav-link" to="/">All</NavLink>
+        </li>
         {categories &&
           categories.map(c => (
-            <NavLink
-              className={style.navLink}
-              activeClassName={style.active}
-              key={c.path}
-              to={`/${c.path}`}
-            >
-              {c.name}
-            </NavLink>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                key={c.path}
+                to={`/${c.path}`}
+              >
+                {c.name}
+              </NavLink>
+            </li>
           ))}
-      </div>
+      </ul>
     )
   }
 }

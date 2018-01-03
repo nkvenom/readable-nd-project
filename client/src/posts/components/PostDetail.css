@@ -1,0 +1,14 @@
+.postDetail {
+  padding: 0.8rem;
+  border: 1px solid lightgray;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.textSmall {
+  font-size: small;
+}
+
+.textLarge {
+  font-size: large;
+}

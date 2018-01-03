@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import logo from './logo.svg'
+import logo from './readable-icon.png'
 import style from './App.css'
 
 import { PostList, PostDetail } from './posts'
