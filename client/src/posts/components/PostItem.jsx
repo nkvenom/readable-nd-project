@@ -71,17 +71,17 @@ export default class PostItem extends Component {
       <div className={style.postItem}>
         <div className="btn-group-vertical">
           <button
-            className="btn btn-sm btn-outline-dark"
+            className="btn btn-sm btn-light"
             title="Vote up"
             onClick={this.upVote}
           >
             <i className="fa fa-arrow-up" aria-hidden="true" />
           </button>
-          <div className="btn btn-sm disabled btn-outline-dark">
+          <div className="btn btn-sm disabled btn-light">
             {voteScore}
           </div>
           <button
-            className="btn btn-sm btn-outline-dark"
+            className="btn btn-sm btn-light"
             title="Vote down"
             onClick={this.downVote}
           >

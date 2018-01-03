@@ -5,6 +5,10 @@ import * as actions from '../redux/actions'
 import * as selectors from '../redux/selectors'
 import PostForm from './PostForm'
 
+const SORT_UP = 1
+const SORT_DOWN = 2
+const SORT_NONE = 0
+
 class PostList extends Component {
   state = {
     sortKey: null,
@@ -57,14 +61,14 @@ class PostList extends Component {
       const aVal = a[sortKey]
       const bVal = b[sortKey]
 
-      if (sortMode === 1) {
+      if (sortMode === SORT_UP) {
         return aVal - bVal
       }
-      if (sortMode === 2) {
+      if (sortMode === SORT_DOWN) {
         return bVal - aVal
       }
 
-      return 0
+      return SORT_NONE
     })
   }
 
@@ -80,13 +84,28 @@ class PostList extends Component {
     })
   }
 
-  onNewPostFinished = (post) => {
+  onNewPostFinished = post => {
     this.props.createPost(post)
     this.toggleNewForm()
   }
 
-  onEditFinished = (post) => {
+  onEditFinished = post => {
     this.props.updatePost(post)
+  }
+
+  renderSortButton({ id, label }) {
+    let iconClass = 'fa fa-sort'
+    if (this.state.sortKey === id && this.state.sortMode === SORT_UP) {
+      iconClass = 'fa fa-sort-up'
+    } else if (this.state.sortKey === id && this.state.sortMode === SORT_DOWN) {
+      iconClass = 'fa fa-sort-down'
+    }
+
+    return (
+      <button id={id} className="btn btn-sm btn-light">
+        <i className={iconClass} aria-hidden="true" /> {label}
+      </button>
+    )
   }
 
   render() {
@@ -95,9 +114,9 @@ class PostList extends Component {
     return (
       <Fragment>
         <div id="sortingButtons" onClick={this.onSortClick}>
-          Sort by
-          <button id="timestamp">{this.state.sortMode} | Date</button>
-          <button id="voteScore">{this.state.sortMode} | Votes</button>
+          Sort by &nbsp;
+          {this.renderSortButton({ id: 'timestamp', label: 'Date' })}
+          {this.renderSortButton({ id: 'voteScore', label: 'Votes' })}
         </div>
         <div>
           {list.map(li => (
@@ -113,9 +132,16 @@ class PostList extends Component {
         </div>
 
         {showNewForm ? (
-          <PostNewForm onEditFinished={this.onNewPostFinished} onCancel={this.toggleNewForm} />
+          <PostNewForm
+            onEditFinished={this.onNewPostFinished}
+            onCancel={this.toggleNewForm}
+          />
         ) : (
-          <button className="btn btn-lg btn-primary" onClick={this.toggleNewForm} id="createNew">
+          <button
+            className="btn btn-lg btn-primary"
+            onClick={this.toggleNewForm}
+            id="createNew"
+          >
             Create New
           </button>
         )}
@@ -124,14 +150,13 @@ class PostList extends Component {
   }
 }
 
-
 const PostNewForm = connect(
   state => ({
     post: {
       title: '',
       body: '',
       author: '',
-      category:'',
+      category: ''
     }
   }),
   null
@@ -148,6 +173,6 @@ const mapDispatchToProps = {
   vote: actions.vote,
   fetchAllPosts: actions.fetchAllPosts,
   createPost: actions.createPost,
-  updatePost: actions.updatePost,
+  updatePost: actions.updatePost
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)
