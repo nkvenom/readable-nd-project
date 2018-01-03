@@ -56,7 +56,7 @@ export default class PostItem extends Component {
   }
 
   renderItem = () => {
-    const { post } = this.props
+    const { post, categoryId } = this.props
     const {
       title,
       author,
@@ -90,7 +90,7 @@ export default class PostItem extends Component {
           <Link to={`/${category}/${id}`}>{title}</Link>
           <div>
             <span className="text-muted">
-              Submitted on {strDate} by {author}
+              Submitted on {strDate} by {author} {!categoryId ? `to /${category}`: null}
             </span>
           </div>
           <p>{commentCount} comments</p>

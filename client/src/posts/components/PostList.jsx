@@ -123,6 +123,7 @@ class PostList extends Component {
             <PostItem
               post={li}
               key={li.id}
+              categoryId={this.props.categoryId}
               upVote={this.upVote}
               downVote={this.downVote}
               delete={this.deletePost}
@@ -165,7 +166,8 @@ const PostNewForm = connect(
 const mapStateToProps = (state, ownProps) => {
   const { match: { params: { categoryId } = {} } = {} } = ownProps
   return {
-    list: selectors.getPostList(state, categoryId)
+    list: selectors.getPostList(state, categoryId),
+    categoryId
   }
 }
 const mapDispatchToProps = {
