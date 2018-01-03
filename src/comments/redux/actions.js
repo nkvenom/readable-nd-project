@@ -7,7 +7,9 @@ import {
   COMMENT_DELETE_SUCCESS,
   COMMENT_DELETE_FAILURE,
   UPDATE_COMMENT_FAILURE,
-  UPDATE_COMMENT_SUCCESS
+  UPDATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAILURE
 } from './actionTypes'
 import { uid } from '../../utils/generate-uid'
 
@@ -140,7 +142,7 @@ export function updateComment(comment) {
 
 export function createCommentSuccess(comment) {
   return {
-    type: UPDATE_COMMENT_SUCCESS,
+    type: CREATE_COMMENT_SUCCESS,
     comment,
     id: comment.id,
     postId: comment.parentId,
@@ -149,7 +151,7 @@ export function createCommentSuccess(comment) {
 
 export function createCommentFailure(error) {
   return {
-    type: UPDATE_COMMENT_FAILURE,
+    type: CREATE_COMMENT_FAILURE,
     error: error.message,
     stack: error.stack,
   }
@@ -161,16 +163,15 @@ export function createComment(comment) {
     comment.timestamp = new Date().getTime()
     comment.id = uid()
 
-    console.log('comment=', comment)
     try {
       const response = await apiCall('/comments', {
         method: 'POST',
         body: JSON.stringify({ ...comment })
       })
 
-      return dispatch(updateCommentSuccess(response))
+      return dispatch(createCommentSuccess(response))
     } catch (error) {
-      dispatch(updateCommentFailure(error))
+      dispatch(createCommentFailure(error))
     }
   }
 }

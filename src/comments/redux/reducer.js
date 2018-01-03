@@ -45,6 +45,7 @@ export default function reducer(state = {}, action) {
       }
 
 
+      case types.CREATE_COMMENT_SUCCESS:
       case types.UPDATE_COMMENT_SUCCESS: {
         const commentsMap = state[postId]
         const comment = commentsMap[id]

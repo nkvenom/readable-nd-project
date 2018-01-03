@@ -105,7 +105,7 @@ class PostDetail extends Component {
 
   render() {
     const { post } = this.props
-    const { id } = post || {}
+    const { id, commentCount } = post || {}
     const { match: { params: { categoryId } = {} } = {} } = this.props
 
     if (!id) {
@@ -126,6 +126,7 @@ class PostDetail extends Component {
           this.renderPostDetail()
         )}
 
+        <h5>{commentCount} Comments</h5>
         <CommentList postId={id} />
       </Fragment>
     )
