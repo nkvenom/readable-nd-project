@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 
 import style from './PostForm.css'
+import { getCategories } from '../../categories/redux/selectors'
 
 class PostForm extends Component {
   static propTypes = {
@@ -24,14 +26,18 @@ class PostForm extends Component {
   }
 
   render() {
-    const { post } = this.props
+    const { post, categories } = this.props
     return (
       <div className={cn('card', style.postForm)}>
         <div className="card-body">
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label htmlFor="category">Category</label>
-              <input className="form-control" id="category" type="text" defaultValue={post.category} />
+              <select className="form-control" id="category" type="text" defaultValue={post.category}>
+                {categories && categories.map(c => (
+                  <option key={c.path} value={c.path}>{c.name}</option>
+                ))}
+              </select>
             </div>
 
             <div className="form-group">
@@ -66,4 +72,8 @@ class PostForm extends Component {
   }
 }
 
-export default PostForm
+const mapStateToProps = (state) => ({
+  categories: getCategories(state)
+})
+
+export default connect(mapStateToProps, null)(PostForm)
